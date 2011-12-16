@@ -102,19 +102,20 @@
 {
   switch (m_imageSelection.selectedSegmentIndex)
   {
-    case 2:
-      m_snapshotStackView.image = nil;
+    case 0:      
+      m_snapshotStackView.image = [UIImage imageNamed:@"350D_IMG_3157_20071030w.jpg"];
       break;
-      
+
     case 1:
       m_snapshotStackView.image = [UIImage imageNamed:@"IMG_5737_081229w7sq.jpg"];
       break;
-      
-    case 0:
-      // case statement intentionally falling through
+     
+    case 2:
+      m_snapshotStackView.image = [UIImage imageNamed:@"IMG_2777_080216w6s.jpg"];
+      break;
       
     default:
-      m_snapshotStackView.image = [UIImage imageNamed:@"350D_IMG_3157_20071030w.jpg"];
+      m_snapshotStackView.image = nil;
   }
 }
 

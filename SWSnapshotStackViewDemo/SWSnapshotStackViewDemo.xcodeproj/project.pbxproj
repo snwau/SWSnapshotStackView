@@ -19,6 +19,7 @@
 		FE3D21591499898C002B99A4 /* 350D_IMG_3157_20071030w.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE3D21581499898B002B99A4 /* 350D_IMG_3157_20071030w.jpg */; };
 		FE3D215B1499957D002B99A4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE3D215A1499957C002B99A4 /* QuartzCore.framework */; };
 		FE3D215D149A1089002B99A4 /* IMG_5737_081229w7sq.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE3D215C149A1089002B99A4 /* IMG_5737_081229w7sq.jpg */; };
+		FE3D215F149AD601002B99A4 /* IMG_2777_080216w6s.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FE3D215E149AD601002B99A4 /* IMG_2777_080216w6s.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		FE3D21581499898B002B99A4 /* 350D_IMG_3157_20071030w.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 350D_IMG_3157_20071030w.jpg; path = SWSnapshotStackViewDemo/Resources/350D_IMG_3157_20071030w.jpg; sourceTree = "<group>"; };
 		FE3D215A1499957C002B99A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FE3D215C149A1089002B99A4 /* IMG_5737_081229w7sq.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_5737_081229w7sq.jpg; path = SWSnapshotStackViewDemo/Resources/IMG_5737_081229w7sq.jpg; sourceTree = "<group>"; };
+		FE3D215E149AD601002B99A4 /* IMG_2777_080216w6s.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = IMG_2777_080216w6s.jpg; path = SWSnapshotStackViewDemo/Resources/IMG_2777_080216w6s.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +125,9 @@
 		FE3D2156149861C6002B99A4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FE3D215C149A1089002B99A4 /* IMG_5737_081229w7sq.jpg */,
 				FE3D21581499898B002B99A4 /* 350D_IMG_3157_20071030w.jpg */,
+				FE3D215E149AD601002B99A4 /* IMG_2777_080216w6s.jpg */,
+				FE3D215C149A1089002B99A4 /* IMG_5737_081229w7sq.jpg */,
 			);
 			name = Resources;
 			path = ..;
@@ -184,6 +187,7 @@
 				FE3D214114980D6D002B99A4 /* RootViewController.xib in Resources */,
 				FE3D21591499898C002B99A4 /* 350D_IMG_3157_20071030w.jpg in Resources */,
 				FE3D215D149A1089002B99A4 /* IMG_5737_081229w7sq.jpg in Resources */,
+				FE3D215F149AD601002B99A4 /* IMG_2777_080216w6s.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

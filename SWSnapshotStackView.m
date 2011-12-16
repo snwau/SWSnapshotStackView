@@ -164,89 +164,107 @@
   {
     NSLog (@"SWSnapshotStackView:drawRect - Single image");
     
+    CGSize scaledImageSize;
+    CGRect matteFrame;
+    
     if (YES == m_scaleByWidth)
     {
       NSLog (@"SWSnapshotStackView:drawRect - Scale by Width");
       
-      CGSize scaledImageSize = CGSizeMake(rect.size.width - (2 * SWSnapshotStackViewMatteWidth),
-                                          (rect.size.width - (2 * SWSnapshotStackViewMatteWidth)) / m_imageAspect);
-      NSLog (@"SWSnapshotStackView:drawRect - scaledImageSize={W:%.0f,H:%.0f}",
-             scaledImageSize.width, scaledImageSize.height);
-
-      CGRect matteFrame = CGRectMake (0.0, floorf ((rect.size.height - ((scaledImageSize.height) + 
-                                                                            (2 * SWSnapshotStackViewMatteWidth))) / 2.0) + 0.5,
-                                      floorf (rect.size.width) - 0.5, floorf (scaledImageSize.height + (2 * SWSnapshotStackViewMatteWidth)));
-      NSLog (@"SWSnapshotStackView:drawRect - matteFrame={{X:%.1f,Y:%.1f},{W:%.1f,H:%.1f}}",
-             matteFrame.origin.x, matteFrame.origin.y, matteFrame.size.width, matteFrame.size.height);      
+      scaledImageSize = CGSizeMake (rect.size.width - (2 * SWSnapshotStackViewMatteWidth),
+                                    (rect.size.width - (2 * SWSnapshotStackViewMatteWidth)) / m_imageAspect);
       
-      CGContextSaveGState (context);
-      
-
-      // SHADOW
-
-      CGFloat xOffset = 5.0;
-      CGFloat shadowHeight = 10.0;
-      
-      CGMutablePathRef shadowPath = CGPathCreateMutable ();
-      CGPathMoveToPoint (shadowPath, NULL, xOffset, matteFrame.origin.y + matteFrame.size.height - shadowHeight);
-      CGPathAddLineToPoint(shadowPath, NULL, matteFrame.origin.x + matteFrame.size.width - xOffset, 
-                           matteFrame.origin.y + matteFrame.size.height - shadowHeight);
-      CGPathAddLineToPoint(shadowPath, NULL, matteFrame.origin.x + matteFrame.size.width - xOffset, 
-                           matteFrame.origin.y + matteFrame.size.height);
-      CGPathAddQuadCurveToPoint (shadowPath, NULL, (matteFrame.origin.x + matteFrame.size.width) / 2.0, matteFrame.origin.y + matteFrame.size.height - shadowHeight, matteFrame.origin.x + xOffset, matteFrame.origin.y + matteFrame.size.height);
-      CGPathCloseSubpath(shadowPath);
-      
-      CGColorRef shadowColor = [UIColor colorWithRed:0 green:0 blue:0.0 alpha:0.6].CGColor;
-      CGContextSetShadowWithColor (context, CGSizeMake(0, 5.0), 5.0, shadowColor);
-      CGContextAddPath(context, shadowPath);      
-
-      UIColor *dummyFill = [UIColor whiteColor];
-      [dummyFill setFill];
-      CGContextFillPath(context);
-      
-      CGPathRelease (shadowPath);
-      
-      
-      CGContextRestoreGState (context);
-      
-      
-      // MATTE FRAME
-
-      CGPathRef matteFramePath = CGPathCreateWithRect (matteFrame, NULL);
-      
-      UIColor *color = [UIColor whiteColor];
-      [color setFill];
-      CGContextAddPath (context, matteFramePath);
-      CGContextFillPath (context);
-      
-      UIColor *outline = [UIColor grayColor];
-      [outline setStroke];
-      CGContextStrokeRect (context, matteFrame);
-      
-      m_imageView = [[UIImageView alloc] initWithImage:m_image];
-      CGRect imageFrame = matteFrame;
-      imageFrame.origin.x += SWSnapshotStackViewMatteWidth;
-      imageFrame.origin.y += SWSnapshotStackViewMatteWidth;
-      imageFrame.size.width -= (2 * SWSnapshotStackViewMatteWidth);
-      imageFrame.size.height -= (2 * SWSnapshotStackViewMatteWidth);
-      m_imageView.frame = imageFrame;
-      
-      //m_imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-      
-      /*
-      m_imageView.autoresizingMask = 
-        UIViewAutoresizingFlexibleLeftMargin |
-        UIViewAutoresizingFlexibleWidth |
-        UIViewAutoresizingFlexibleRightMargin |
-        UIViewAutoresizingFlexibleTopMargin |
-        UIViewAutoresizingFlexibleHeight |
-        UIViewAutoresizingFlexibleBottomMargin;
-       */
-      
-      [self addSubview:m_imageView];
-      
-      CGPathRelease (matteFramePath); 
+      matteFrame = CGRectMake (0.0, floorf ((rect.size.height - ((scaledImageSize.height) + 
+                                                                 (2 * SWSnapshotStackViewMatteWidth))) / 2.0) + 0.5,
+                               floorf (rect.size.width) - 0.5, 
+                               floorf (scaledImageSize.height + (2 * SWSnapshotStackViewMatteWidth)));       
     }
+    else
+    {
+      NSLog (@"SWSnapshotStackView:drawRect - Scale by Height");
+      
+      scaledImageSize = CGSizeMake ((rect.size.height - (2 * SWSnapshotStackViewMatteWidth) - 15.0) * m_imageAspect,
+                                    (rect.size.height - (2 * SWSnapshotStackViewMatteWidth) - 15.0));
+      
+      matteFrame = CGRectMake (floorf ((rect.size.width - ((scaledImageSize.width) + (2 * SWSnapshotStackViewMatteWidth))) / 2.0) + 0.5,
+                                        0.0, floorf (scaledImageSize.width + (2 * SWSnapshotStackViewMatteWidth)),
+                                        floorf (scaledImageSize.height + (2 * SWSnapshotStackViewMatteWidth)) - 0.5);
+    }
+  
+    
+    NSLog (@"SWSnapshotStackView:drawRect - scaledImageSize={W:%.0f,H:%.0f}",
+           scaledImageSize.width, scaledImageSize.height);
+    
+    NSLog (@"SWSnapshotStackView:drawRect - matteFrame={{X:%.1f,Y:%.1f},{W:%.1f,H:%.1f}}",
+           matteFrame.origin.x, matteFrame.origin.y, matteFrame.size.width, matteFrame.size.height);     
+    
+    CGContextSaveGState (context);
+
+    // SHADOW
+
+    CGFloat xOffset = 5.0;
+    CGFloat shadowHeight = 10.0;
+      
+    CGMutablePathRef shadowPath = CGPathCreateMutable ();
+    CGPathMoveToPoint (shadowPath, NULL, matteFrame.origin.x + xOffset, matteFrame.origin.y + matteFrame.size.height - shadowHeight);
+    CGPathAddLineToPoint (shadowPath, NULL, matteFrame.origin.x + matteFrame.size.width - xOffset, 
+                          matteFrame.origin.y + matteFrame.size.height - shadowHeight);
+    CGPathAddLineToPoint (shadowPath, NULL, matteFrame.origin.x + matteFrame.size.width - xOffset, 
+                          matteFrame.origin.y + matteFrame.size.height);
+    CGPathAddQuadCurveToPoint (shadowPath, NULL, (matteFrame.origin.x + matteFrame.size.width) / 2.0, 
+                               matteFrame.origin.y + matteFrame.size.height - shadowHeight, 
+                               matteFrame.origin.x + xOffset, matteFrame.origin.y + matteFrame.size.height);
+    CGPathCloseSubpath (shadowPath);
+      
+    CGColorRef shadowColor = [UIColor colorWithRed:0 green:0 blue:0.0 alpha:0.6].CGColor;
+    CGContextSetShadowWithColor (context, CGSizeMake(0, 5.0), 5.0, shadowColor);
+    CGContextAddPath (context, shadowPath);      
+
+    UIColor *dummyFill = [UIColor whiteColor];
+    //UIColor *dummyFill = [UIColor blackColor];
+    [dummyFill setFill];
+    CGContextFillPath (context);
+      
+    CGPathRelease (shadowPath);
+      
+    CGContextRestoreGState (context);
+      
+    // MATTE FRAME
+
+    CGPathRef matteFramePath = CGPathCreateWithRect (matteFrame, NULL);
+      
+    UIColor *color = [UIColor whiteColor];
+    [color setFill];
+    CGContextAddPath (context, matteFramePath);
+    CGContextFillPath (context);
+      
+    UIColor *outline = [UIColor grayColor];
+    [outline setStroke];
+    CGContextStrokeRect (context, matteFrame);
+      
+    m_imageView = [[UIImageView alloc] initWithImage:m_image];
+    CGRect imageFrame = matteFrame;
+    imageFrame.origin.x += SWSnapshotStackViewMatteWidth;
+    imageFrame.origin.y += SWSnapshotStackViewMatteWidth;
+    imageFrame.size.width -= (2 * SWSnapshotStackViewMatteWidth);
+    imageFrame.size.height -= (2 * SWSnapshotStackViewMatteWidth);
+    m_imageView.frame = imageFrame;
+      
+    //m_imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      
+//    m_imageView.autoresizingMask = 
+//      UIViewAutoresizingFlexibleLeftMargin |
+//      UIViewAutoresizingFlexibleWidth |
+//      UIViewAutoresizingFlexibleRightMargin |
+//      UIViewAutoresizingFlexibleTopMargin |
+//      UIViewAutoresizingFlexibleHeight |
+//      UIViewAutoresizingFlexibleBottomMargin;
+
+      
+    [self addSubview:m_imageView];
+      
+    CGPathRelease (matteFramePath); 
+
   }
   else
   {
