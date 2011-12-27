@@ -105,10 +105,10 @@
 		FE3D213114980D6D002B99A4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FE3D213214980D6D002B99A4 /* SWSnapshotStackViewDemo-Info.plist */,
 				FE3D213314980D6D002B99A4 /* InfoPlist.strings */,
 				FE3D213614980D6D002B99A4 /* main.m */,
 				FE3D213814980D6D002B99A4 /* SWSnapshotStackViewDemo-Prefix.pch */,
+				FE3D213214980D6D002B99A4 /* SWSnapshotStackViewDemo-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

@@ -1,36 +1,86 @@
+////////////////////////////////////////////////////////////////////////////
+/*!
+ ** \file [TBD]
+ ** \brief [TBD]
+ ** \author Scott White (http://github.com/snwau)
+ **
+ ** [TBD]
+ **
+ ** Copyright (c) 2011 Scott White. All rights reserved.
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ ** 
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ ** 
+ ** You should have received a copy of the GNU General Public License
+ ** along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ **
+ ** \see [TBD]
+ */
+// Documentation of the code is formatted for use with the documentation
+// package Doxygen (see http://www.doxygen.org/).
 //
-//  AppDelegate.m
-//  SWSnapshotStackViewDemo
+// Project     :  [TBD]
+// Component   : [TBD]
+// Platform    : [TBD]
 //
-//  Created by Scott White on 14/12/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
+////////////////////////////////////////////////////////////////////////////
 
 #import "AppDelegate.h"
 
-#import "RootViewController.h"
+
+// ********************************************************************** //
+// APPLICATION DELEGATE CLASS
+// ********************************************************************** //
+
+#pragma mark Application Delegate class
 
 @implementation AppDelegate
 
+// ********************************************************************** //
+// PROPERTIES
+
+#pragma mark Properties
+
 @synthesize window = _window;
 @synthesize viewController = _viewController;
+
+
+// ********************************************************************** //
+// INSTANCE METHODS
+
+#pragma mark Instance Methods
 
 - (void)dealloc
 {
   [_window release];
   [_viewController release];
-    [super dealloc];
+  
+  [super dealloc];
 }
+
+
+// ********************************************************************** //
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
+  self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+  
+  // Override point for customization after application launch.
   self.viewController = [[[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil] autorelease];
   self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
-    return YES;
+  [self.window makeKeyAndVisible];
+  return (YES);
 }
+
+
+// ********************************************************************** //
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -40,6 +90,9 @@
    */
 }
 
+
+// ********************************************************************** //
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   /*
@@ -48,6 +101,9 @@
    */
 }
 
+
+// ********************************************************************** //
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   /*
@@ -55,12 +111,18 @@
    */
 }
 
+
+// ********************************************************************** //
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   /*
    Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
    */
 }
+
+
+// ********************************************************************** //
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
@@ -71,4 +133,9 @@
    */
 }
 
-@end
+
+// ********************************************************************** //
+
+@end  // @AppDelegate
+
+// End of file

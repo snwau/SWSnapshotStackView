@@ -35,6 +35,16 @@
 #import <UIKit/UIKit.h>
 
 
+typedef struct
+{
+  CGPoint centre;
+  CGFloat angleRotation;
+  
+  CGSize boundingRectSize;
+}
+SnapshotPosition_t;
+
+
 // ********************************************************************** //
 // SNAPSHOT STACK VIEW CLASS
 // ********************************************************************** //
@@ -45,14 +55,30 @@
 @interface SWSnapshotStackView : UIView 
 {
   // ******************************************************************** //	
+  // CONSTANTS
+
+#pragma mark Constants
+  
+#define SWSnapshotStackViewSnapshotsPerStack 3  
+
+    
+  // ******************************************************************** //	
   // MEMBER VARIABLES
+  
+  //extern int const SWSnapshotStackViewSnapshotsPerStack;
   
   BOOL m_displayStack;
   UIImage *m_image;
+  
   CGFloat m_imageAspect;
-  BOOL m_scaleByWidth;
   
   UIImageView *m_imageView;
+  
+
+  SnapshotPosition_t m_snapshotPositions[SWSnapshotStackViewSnapshotsPerStack];
+  //CGPoint m_snapshotCentres[SWSnapshotStackViewSnapshotsPerStack];
+  
+  CGFloat m_requiredScaling;
 }
 
 
