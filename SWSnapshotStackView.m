@@ -36,10 +36,24 @@
 
 
 // ********************************************************************** //
+// SNAPSHOT STACK VIEW CLASS (PRIVATE METHODS)
+// ********************************************************************** //
+
+#pragma mark Snapshot Stack View class (Private Methods)
+
+@interface SWSnapshotStackView (Private)
+
+- (void)commonInitialisation;
+- (void)calculateRequiredStackScaling;
+
+@end
+
+
+// ********************************************************************** //
 // SNAPSHOT STACK VIEW CLASS
 // ********************************************************************** //
 
-#pragma mark Snapshot Stack View class
+#pragma mark - Snapshot Stack View class
 
 @implementation SWSnapshotStackView
 
@@ -49,8 +63,6 @@
 #pragma mark Constants
 
 #define SWSnapshotStackViewMatteWidth        7.0
-//#define SWSnapshotStackViewSnapshotsPerStack 3
-//int const SWSnapshotStackViewSnapshotsPerStack = 3;
 
 
 // ********************************************************************** //
@@ -85,7 +97,11 @@
     NSLog (@"SWSnapshotStackView:setImage - image.size={W:%.0f,H:%.0f}",
            m_image.size.width, m_image.size.height);
     m_imageAspect = m_image.size.width / m_image.size.height;
-    //m_scaleByWidth = (m_imageAspect > 1.0) ? YES : NO;
+
+    if (YES == m_displayStack)
+    {
+      [self calculateRequiredStackScaling];
+    }
   }
   
   [self setNeedsDisplay];
@@ -105,41 +121,7 @@
   {
     m_displayStack = displayAsStack;
     
-    for (NSInteger idx = 0; idx < SWSnapshotStackViewSnapshotsPerStack; idx++)
-    {
-      m_snapshotPositions[idx].centre = CGPointMake(self.center.x, self.center.y);
-    }
-    m_snapshotPositions[0].angleRotation = 2.0;
-    m_snapshotPositions[1].angleRotation = 4.0;
-    m_snapshotPositions[2].angleRotation = 0.0;
-    
-    m_requiredScaling = 1.0;
-    for (NSInteger idx = 0; idx < SWSnapshotStackViewSnapshotsPerStack; idx++)
-    {
-      CGSize imageSize = m_image.size;
-      CGFloat angleRotation = ((m_snapshotPositions[idx].angleRotation) * (M_PI / 180.0));
-      CGSize boundingRect = CGSizeMake ((imageSize.width * cos (angleRotation)) + (imageSize.height * sin (angleRotation)),
-                                        (imageSize.width * sin (angleRotation)) + (imageSize.height * cos (angleRotation)));
-      m_snapshotPositions[idx].boundingRectSize = boundingRect;
-      NSLog (@"Bounding Rect [%d] = {W:%.3f,H:%.3f}",
-             idx, boundingRect.width, boundingRect.height);
-    
-      CGFloat requiredWidthScaling = self.frame.size.width / boundingRect.width;
-      CGFloat requiredHeightScaling = self.frame.size.height / boundingRect.height;
-      
-      if (requiredWidthScaling < m_requiredScaling)
-      {
-        m_requiredScaling = requiredWidthScaling;
-      }
-      if (requiredHeightScaling < m_requiredScaling)
-      {
-        m_requiredScaling = requiredHeightScaling;
-      }
-    }
-    
-
-    
-    NSLog (@"Required Scaling: %.3f", m_requiredScaling);
+    [self calculateRequiredStackScaling];
     
     [self setNeedsDisplay];
   }
@@ -154,13 +136,9 @@
 
 - (id)initWithFrame:(CGRect)frame 
 {
-  NSLog (@"SWSnapshotStackView:initWithFrame");
-  
-  if ((self = [super initWithFrame:frame])) 
+  if (nil != (self = [super initWithFrame:frame])) 
   {
-    // Initialization code
-    
-    //self.autoresizesSubviews = YES;
+    [self commonInitialisation];
   }
   
   return (self);
@@ -171,7 +149,24 @@
 
 - (void)awakeFromNib
 {
-  NSLog (@"SWSnapshotStackView:awakeFromNib");
+  [self commonInitialisation];
+}
+
+
+// ********************************************************************** //
+
+- (void)commonInitialisation
+{
+  // Initialise the angle of rotation for each shot in the stack
+  for (NSInteger idx = 0; idx < SWSnapshotStackViewSnapshotsPerStack; idx++)
+  {
+    m_snapshotPositions[idx].centre = CGPointMake(self.center.x, self.center.y);
+  }
+  m_snapshotPositions[0].angleRotation = 2.0;
+  m_snapshotPositions[1].angleRotation = 4.0;
+  m_snapshotPositions[2].angleRotation = 0.0;  
+  
+  //self.autoresizesSubviews = YES;  
 }
 
 
@@ -208,12 +203,9 @@
   
   if (NO == m_displayStack)
   {
-    NSLog (@"SWSnapshotStackView:drawRect - Single image");
-    
     CGSize scaledImageSize;
     CGRect matteFrame;
     
-    //if (YES == m_scaleByWidth)
     if (m_imageAspect > 1.0)
     {
       NSLog (@"SWSnapshotStackView:drawRect - Scale by Width");
@@ -317,9 +309,16 @@
   }
   else
   {
-    NSLog (@"SWSnapshotStackView:drawRect - Display Stack");
+    //CGFloat xOffset = 5.0;
+    CGFloat shadowRadius = 6.0;
+    
+    
+    CGFloat requiredWidthScaling = (self.frame.size.width - 1 - (2 * shadowRadius)) / m_snapshotPositions[m_minScaleShotIdx].boundingRectSize.width;
+    CGFloat requiredHeightScaling = (self.frame.size.height - 1 - (2 * shadowRadius)) / m_snapshotPositions[m_minScaleShotIdx].boundingRectSize.height;
+    CGFloat requiredScaling = (requiredWidthScaling < requiredHeightScaling) ? requiredWidthScaling : requiredHeightScaling;
 
-    CGSize matteSize = CGSizeMake (m_image.size.width * m_requiredScaling, m_image.size.height * m_requiredScaling);
+    //CGSize matteSize = CGSizeMake (m_image.size.width * m_requiredScaling, m_image.size.height * m_requiredScaling);
+    CGSize matteSize = CGSizeMake (m_image.size.width * requiredScaling, m_image.size.height * requiredScaling);
     NSLog (@"Matte Size = {W:%.3f, H:%.3f}", matteSize.width, matteSize.height);
     
     CGPoint viewCenter = CGPointMake (CGRectGetMidX (self.frame) - CGRectGetMinX (self.frame), 
@@ -340,8 +339,9 @@
       {
         NSLog (@"0.0 Rotation");
         
-        CGRect matteFrameRect = CGRectMake (viewCenter.x - (matteSize.width / 2.0), viewCenter.y - (matteSize.height / 2.0),
-                                           matteSize.width, matteSize.height);
+        CGRect matteFrameRect = CGRectMake (floorf (viewCenter.x - (matteSize.width / 2.0)) + 0.5,
+                                            floorf (viewCenter.y - (matteSize.height / 2.0)) + 0.5,
+                                            floorf (matteSize.width), floorf (matteSize.height));
         NSLog (@"Matte Frame Rect = {{X:%.2f, Y:%.2f},{W:%.2f,H:%.3f}}",
                matteFrameRect.origin.x, matteFrameRect.origin.y, matteFrameRect.size.width, matteFrameRect.size.height);
         CGPathAddRect (matteFramePath, NULL, matteFrameRect);
@@ -354,21 +354,31 @@
         CGPoint P3;
         CGPoint P4;
         
-        CGSize scaledBoudingRectSize = CGSizeMake ((m_snapshotPositions[shotIdx].boundingRectSize.width * m_requiredScaling),
-                                                   (m_snapshotPositions[shotIdx].boundingRectSize.height * m_requiredScaling));
+        //CGSize scaledBoudingRectSize = CGSizeMake ((m_snapshotPositions[shotIdx].boundingRectSize.width * m_requiredScaling),
+        //                                           (m_snapshotPositions[shotIdx].boundingRectSize.height * m_requiredScaling));
+        CGSize scaledBoudingRectSize = CGSizeMake ((m_snapshotPositions[shotIdx].boundingRectSize.width * requiredScaling),
+                                                   (m_snapshotPositions[shotIdx].boundingRectSize.height * requiredScaling));
+        
+        NSLog (@"scaledBoundingRectSize = {W:%.0f,H:%.0f}", scaledBoudingRectSize.width, scaledBoudingRectSize.height);
         
         
-        //if (angleRotation < 0.0)
-        if (true)
+        if (angleRotation < 0.0)
+        //if (true)
         {
           // Counter-clockwise rotation
          
           NSLog (@"Counter-clockwise rotation");
           
           P1 = CGPointMake (viewCenter.x - (scaledBoudingRectSize.width / 2.0), viewCenter.y - (scaledBoudingRectSize.height / 2.0) + (scaledBoudingRectSize.width * sin (angleRotation)));
+          NSLog (@"P1 = {X:%.3f,Y:%.3f}", P1.x, P1.y);
           P2 = CGPointMake (viewCenter.x + (scaledBoudingRectSize.width / 2.0) - (scaledBoudingRectSize.height * sin (angleRotation)), viewCenter.y - (scaledBoudingRectSize.height / 2.0));
+          NSLog (@"P2 = {X:%.3f,Y:%.3f}", P2.x, P2.y);
           P3 = CGPointMake (viewCenter.x + (scaledBoudingRectSize.width / 2.0), viewCenter.y + (scaledBoudingRectSize.height / 2.0) - (scaledBoudingRectSize.width * sin (angleRotation)));
+          NSLog (@"P3 = {X:%.3f,Y:%.3f}", P3.x, P3.y);          
           P4 = CGPointMake (viewCenter.x - (scaledBoudingRectSize.width / 2.0) + (scaledBoudingRectSize.height * sin (angleRotation)), viewCenter.y + (scaledBoudingRectSize.height / 2.0));
+          NSLog (@"P4 = {X:%.3f,Y:%.3f}", P4.x, P4.y);
+          
+          
         }
         else
         {
@@ -376,16 +386,52 @@
           
           NSLog (@"Clockwise Rotation");
           
-          //TODO: Implement
+          P1 = CGPointMake (viewCenter.x - (scaledBoudingRectSize.width / 2.0) + (scaledBoudingRectSize.width * sin (angleRotation)),
+                            viewCenter.y - (scaledBoudingRectSize.height / 2.0));
+          NSLog (@"P1 = {X:%.3f,Y:%.3f}", P1.x, P1.y);
+          P2 = CGPointMake (viewCenter.x + (scaledBoudingRectSize.width / 2.0),
+                            viewCenter.y - (scaledBoudingRectSize.height / 2.0) + (scaledBoudingRectSize.height * sin (angleRotation)));
+          NSLog (@"P2 = {X:%.3f,Y:%.3f}", P2.x, P2.y);
+          P3 = CGPointMake (viewCenter.x + (scaledBoudingRectSize.width / 2.0) - (scaledBoudingRectSize.width * sin (angleRotation)), 
+                            viewCenter.y + (scaledBoudingRectSize.height / 2.0));
+          NSLog (@"P3 = {X:%.3f,Y:%.3f}", P3.x, P3.y);          
+          P4 = CGPointMake (viewCenter.x - (scaledBoudingRectSize.width / 2.0),
+                            viewCenter.y + (scaledBoudingRectSize.height / 2.0) - (scaledBoudingRectSize.height * sin (angleRotation)));
+          NSLog (@"P4 = {X:%.3f,Y:%.3f}", P4.x, P4.y);
         }
+
+        P1.x = floorf (P1.x) + 0.5;
+        P1.y = floorf (P1.y) + 0.5; 
+        P2.x = floorf (P2.x) + 0.5;
+        P2.y = floorf (P2.y) + 0.5; 
+        P3.x = floorf (P3.x) + 0.5;
+        P3.y = floorf (P3.y) + 0.5; 
+        P4.x = floorf (P4.x) + 0.5;
+        P4.y = floorf (P4.y) + 0.5;        
+
         
+        // Create path to define the Matte Frame (defined clockwise from top-left corner)
         CGPathMoveToPoint (matteFramePath, NULL, P1.x, P1.y);
         CGPathAddLineToPoint (matteFramePath, NULL, P2.x, P2.y);
         CGPathAddLineToPoint (matteFramePath, NULL, P3.x, P3.y);
         CGPathAddLineToPoint (matteFramePath, NULL, P4.x, P4.y);
         CGPathCloseSubpath (matteFramePath);
       }
-                                                                                  
+
+      CGContextSaveGState (context);
+      
+      CGColorRef shadowColor = [UIColor colorWithRed:0 green:0 blue:0.0 alpha:0.4].CGColor;
+      CGContextSetShadowWithColor (context, CGSizeMake(0.0, 2.0), shadowRadius, shadowColor);
+      UIColor *dummyFill = [UIColor whiteColor];
+      [dummyFill setFill];
+      CGContextAddPath (context, matteFramePath); 
+      CGContextFillPath (context);
+      
+      //CGContextSetShadowWithColor (context, CGSizeMake(0, 0.0), 5.0, NULL);
+      
+      CGContextRestoreGState (context);
+
+
       UIColor *fillColor = [UIColor whiteColor];
       [fillColor setFill];
       UIColor *strokeColor = [UIColor grayColor];
@@ -394,6 +440,7 @@
       CGContextAddPath (context, matteFramePath);   
       CGContextDrawPath (context, kCGPathFillStroke);
       //CGContextStrokePath (context);
+       
       
       CGPathRelease (matteFramePath);
       
@@ -405,35 +452,47 @@
                                     viewCenter.y - (matteSize.height / 2.0) + SWSnapshotStackViewMatteWidth,
                                     matteSize.width - (2 * SWSnapshotStackViewMatteWidth),
                                     matteSize.height - (2 * SWSnapshotStackViewMatteWidth));
-    /*
-    imageFrame.origin.x += SWSnapshotStackViewMatteWidth;
-    imageFrame.origin.y += SWSnapshotStackViewMatteWidth;
-    imageFrame.size.width -= (2 * SWSnapshotStackViewMatteWidth);
-    imageFrame.size.height -= (2 * SWSnapshotStackViewMatteWidth);
-     */
     m_imageView.frame = imageFrame;
-    
-    //m_imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    //    m_imageView.autoresizingMask = 
-    //      UIViewAutoresizingFlexibleLeftMargin |
-    //      UIViewAutoresizingFlexibleWidth |
-    //      UIViewAutoresizingFlexibleRightMargin |
-    //      UIViewAutoresizingFlexibleTopMargin |
-    //      UIViewAutoresizingFlexibleHeight |
-    //      UIViewAutoresizingFlexibleBottomMargin;
-    
-    
+
     [self addSubview:m_imageView];
     
   }
   
-
 }
 
 
+// ********************************************************************** //
 
-
+- (void)calculateRequiredStackScaling
+{
+  m_requiredScaling = 1.0;
+  for (NSInteger idx = 0; idx < SWSnapshotStackViewSnapshotsPerStack; idx++)
+  {
+    CGSize imageSize = m_image.size;
+    CGFloat angleRotation = ((m_snapshotPositions[idx].angleRotation) * (M_PI / 180.0));
+    CGSize boundingRect = CGSizeMake ((imageSize.width * cos (angleRotation)) + (imageSize.height * sin (angleRotation)),
+                                      (imageSize.width * sin (angleRotation)) + (imageSize.height * cos (angleRotation)));
+    m_snapshotPositions[idx].boundingRectSize = boundingRect;
+    NSLog (@"Bounding Rect [%d] = {W:%.3f,H:%.3f}",
+           idx, boundingRect.width, boundingRect.height);
+    
+    CGFloat requiredWidthScaling = (self.frame.size.width - 1) / boundingRect.width;
+    CGFloat requiredHeightScaling = (self.frame.size.height - 1) / boundingRect.height;
+    
+    if (requiredWidthScaling < m_requiredScaling)
+    {
+      m_requiredScaling = requiredWidthScaling;
+      m_minScaleShotIdx = idx;
+    }
+    if (requiredHeightScaling < m_requiredScaling)
+    {
+      m_requiredScaling = requiredHeightScaling;
+      m_minScaleShotIdx = idx;      
+    }
+  }
+  
+  NSLog (@"Required Scaling: %.3f", m_requiredScaling);  
+}
 
 
 // ********************************************************************** //

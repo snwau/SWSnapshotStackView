@@ -65,8 +65,6 @@ SnapshotPosition_t;
   // ******************************************************************** //	
   // MEMBER VARIABLES
   
-  //extern int const SWSnapshotStackViewSnapshotsPerStack;
-  
   BOOL m_displayStack;
   UIImage *m_image;
   
@@ -76,9 +74,9 @@ SnapshotPosition_t;
   
 
   SnapshotPosition_t m_snapshotPositions[SWSnapshotStackViewSnapshotsPerStack];
-  //CGPoint m_snapshotCentres[SWSnapshotStackViewSnapshotsPerStack];
   
   CGFloat m_requiredScaling;
+  NSInteger m_minScaleShotIdx;
 }
 
 
