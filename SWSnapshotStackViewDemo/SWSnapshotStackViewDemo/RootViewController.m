@@ -1,12 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////
 /*!
- ** \file [TBD]
- ** \brief [TBD]
- ** \author Scott White (http://github.com/snwau)
+ ** \file RootViewController.m
+ ** \brief Root View Controller class implementation file
+ ** \author Scott White (support@scottwhite.id.au, http://github.com/snwau)
  **
- ** [TBD]
+ ** The root (and only) view controller responsible for displaying and
+ ** controlling a Snapshot Stack View and associated controls for 
+ ** demonstrating its capabilities such as dynamic frame adjustment,
+ ** support for all image aspects and the selectable display modes (single
+ ** or stack).
  **
- ** Copyright (c) 2011 Scott White. All rights reserved.
+ ** Copyright (c) 2012 Scott White. All rights reserved.
  **
  ** This program is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU General Public License as published by
@@ -21,14 +25,13 @@
  ** You should have received a copy of the GNU General Public License
  ** along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  **
- ** \see [TBD]
+ ** \see RootViewController.h
  */
 // Documentation of the code is formatted for use with the documentation
 // package Doxygen (see http://www.doxygen.org/).
 //
-// Project     :  [TBD]
-// Component   : [TBD]
-// Platform    : [TBD]
+// Project     : Snapshot Stack View Demonstration
+// Platform    : iOS SDK 3.0+
 //
 ////////////////////////////////////////////////////////////////////////////
 
@@ -50,6 +53,7 @@
 #pragma mark Properties
 
 @synthesize displayStackSwitch = m_displayStackSwitch;
+@synthesize imageFrameSize = m_imageFrameSize;
 @synthesize imageSelection = m_imageSelection;
 @synthesize sizeSlider = m_sizeSlider;
 @synthesize snapshotStackView = m_snapshotStackView;
@@ -75,15 +79,13 @@
   [super viewDidLoad];
   
 	// Do any additional setup after loading the view, typically from a nib.
-
-  //TODO: Set in Interface Builder?
-  m_sizeSlider.minimumValue = 20.0;
-  m_sizeSlider.maximumValue = 280.0;
-  m_sizeSlider.value = 280.0;  
   
-  m_displayStackSwitch.on = NO;
-  
+#if 1  
+  // Tested with the views contentMode set to redraw (forces call to drawRect:
+  // on change of views frame) enabled and disabled.
   m_snapshotStackView.contentMode = UIViewContentModeRedraw;
+#endif  
+  
   m_snapshotStackView.displayAsStack = m_displayStackSwitch.on;
   m_snapshotStackView.image = [UIImage imageNamed:@"350D_IMG_3157_20071030w.jpg"];
 }
@@ -97,6 +99,7 @@
  
   // Release any retained subviews of the main view.
   self.displayStackSwitch = nil;
+  self.imageFrameSize = nil;
   self.imageSelection = nil;
   self.sizeSlider = nil;
   self.snapshotStackView = nil;
@@ -133,7 +136,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
   // Return YES for supported orientations
-  //return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
   return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -178,9 +180,17 @@
 - (IBAction)sizeSliderValueChanged:(id)sender
 {
   CGFloat sizeDelta = m_sizeSlider.maximumValue - m_sizeSlider.value;
-  CGRect newFrame = CGRectMake (20 + (sizeDelta / 2.0), 20 + (sizeDelta / 2.0), 
-                             m_sizeSlider.value, m_sizeSlider.value);
+
+  CGRect newFrame = CGRectMake (floor (20 + (sizeDelta / 2.0)),
+                                floor (20 + (sizeDelta / 2.0)), 
+                                floor (m_sizeSlider.value),
+                                floor (m_sizeSlider.value));
+  NSLog (@"Slider - frame={X:%.2f,Y:%.2f},{W:%.2f,H:%.2f} sizeDelta = %.2f",
+         newFrame.origin.x, newFrame.origin.y, newFrame.size.width, newFrame.size.height, sizeDelta);  
   m_snapshotStackView.frame = newFrame; 
+  
+  m_imageFrameSize.text = [NSString stringWithFormat:@"(%.0f x %.0f)", floor (m_sizeSlider.value),
+                           floor (m_sizeSlider.value)];
 }
 
 

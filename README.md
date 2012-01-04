@@ -1,50 +1,89 @@
 Snapshot Stack View
 ==================== 
 
-Snapshot Stack View is a ...
+Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack of shots. Best described with a screenshot:
 
-![Screenshot](http://github.com/snwau/repository/raw/master/img/Screenshot.png)
+![Screenshot](http://github.com/snwau/TBD-repository/raw/master/img/Screenshot.png)
 
-Motivations
------------
+Features
+* Multiple display modes; single or stacked.
+* Respects image aspect, scaling snapshots to fit within the views frame
+* Supports all image aspects (landscape, square, portrait)
+* Supports dynamic modification of views frame, the image to display as the top snapshot and display mode.
 
+Background
+----------
 
-Installation
-------------
+Snapshot Stack View was developed for use in an iOS application I'm currently developing to decorate a UIImage for presentation to the user. The application must display images of unknown and varying aspect ratios.
 
+Normally the effects rendered within the Snapshot Stack View to decorate a UIImage for display could easily generated be within Photoshop as a layer to sit over/under the UIImage, however the aspect and dimensions of the image must be known and static, hence not possible. 
+
+An alternative approach often used is to crop the images to a fixed aspect, however this can lead to cropping important information from the image or destroying the general composition of a photograph, which I also did not want to risk.
+
+I use Snapshot Stack View to display a thumbnail to the user within an article for touching which then launches into a full screen image viewer. I've tried to convey the availability of either a single image or multiple using the Snapshot Stack View display modes (single or stacked).
+
+Compatability
+-------------
+
+Snapshot Stack View has been developed to run on iOS 3.2 or later (Deployment Target) and was developed using iOS SDK 5.0, Xcode 4.2.1 (Base SDK).
+
+Support for iOS 3 was required for the target application I initially developed Snapshot Stack View for and hence Snapshot Stack View does NOT make use of any of the newer iOS features such as blocks or more importantly Automatic Reference Counting (ARC).
+
+If using Snapshot Stack View within a newer ARC enabled project, disable ARC selectively for compilation of Snapshot Stack View source files:
+1. Select the project within Xcode project navigator
+2. Select the required target from the list of Targets
+3. Select the Build Phases tab
+4. Expand the list of Compile Sources and double-click on the `SWSnapshotStackView.m` file to modify the compiler flags for this file.
+5. Add `-fno-objc-arc` to the compiler flags
 
 Usage
 -----
 
+To use Snapshot Stack View within your project:
+1. Add `SWSnapshotStackView.h` and `SWSnapshotStackView.m` to project your Xcode project.
+2. Ensure `QuartzCore.framework` framework is added to the project if not already.
+3. Import the Snapshot Stack View header file to the destination View Controller source using '#import "SWSnapshotStackView.h".
+4. Create an instance of the Snapshot Stack View class either within a XIB using Interface Builder (IB) or programatically as you would any other view.
+5. Set the desired image (an existing UIImage) to display using the `image` property within code.
+6. Set the desired display mode using the `displayAsStack` property within code.
 
-Customisation
+Refer to the Demonstration application `SWSnapshotStackViewDemo/` for example of use.
+
+Demonstration
 -------------
 
+A demonstration application is provided to illustrate (and test) the use of Snapshot Stack View, demonstrating support for;
+* Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
+* Dynamic resizing of views frame via slider.
+* Selection and rendering of display mode (single or stack) via switch.
+
+![Screenshot](http://github.com/snwau/TBD-repository/raw/master/img/ScreenshotDemo.png)
 
 Known Issues
 ------------
 
+If any, refer to current [issues](https://github.com/snwau/TBD-repository/issues) on GitHub.
 
 Future Work
 -----------
 
+Possible improvements and/or additions include (in order of priority);
+* Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
+* Better support for smaller view frames, by scaling matte and shadow effects accordingly.
+* Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
+* Opening up further customisations via properties
 
 Contributing
 ------------
 
+If you find an problem you are welcome to raise an [issue](https://github.com/snwau/TBD-repository/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
 
-Photographs
------------
+Also don't hesitate to email me with any suggestions or feedback.
 
-TBD: license, retain rights
+License (Source Code)
+---------------------
 
-http://www.pbase.com/snwau/image/92831594
-
-
-License
--------
-
-Copyright (c) 2011 Scott White. All rights reserved.
+Copyright (c) 2012 Scott White. All rights reserved.
  
 Snapshot Stack View is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -58,3 +97,19 @@ GNU General Public License for more details.
 
 Refer to the LICENSE file for a copy of the GNU General Public License
 along with this program.  Otherwise, see <http://www.gnu.org/licenses/>.
+
+License (Images)
+----------------
+
+The images (`350D_IMG_3157_20071030w.jpg`, `IMG_2777_080216w6s.jpg`, and `IMG_5737_081229w7sq.jpg`) used within the Snapshot Stack View demonstration application are exceptions to the aforementioned Source Code license and hence not covered by GNU GPL.
+
+Copyright (c) 2012 Scott White. All rights reserved.
+
+No reproduction in any form or by any means, graphic, electronic or mechanical is authorised outside of the Snapshot Stack View demonstration application, without the express permission of Scott White.
+
+Contact
+-------
+
+Email: Refer to source code file header for email address.
+Twitter: [@snwau](http://www.twitter.com/snwau)
+GitHub: [snwau](http://github.com/snwau)

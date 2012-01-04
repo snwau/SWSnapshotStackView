@@ -1,12 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////
 /*!
- ** \file [TBD]
- ** \brief [TBD]
- ** \author Scott White (http://github.com/snwau)
+ ** \file RootViewController.h
+ ** \brief Root View Controller class definition file
+ ** \author Scott White (support@scottwhite.id.au, http://github.com/snwau)
  **
- ** [TBD]
+ ** The root (and only) view controller responsible for displaying and
+ ** controlling a Snapshot Stack View and associated controls for 
+ ** demonstrating its capabilities such as dynamic frame adjustment,
+ ** support for all image aspects and the selectable display modes (single
+ ** or stack).
  **
- ** Copyright (c) 2011 Scott White. All rights reserved.
+ ** Copyright (c) 2012 Scott White. All rights reserved.
  **
  ** This program is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU General Public License as published by
@@ -21,14 +25,13 @@
  ** You should have received a copy of the GNU General Public License
  ** along with this program.  If not, see <http://www.gnu.org/licenses/>. 
  **
- ** \see [TBD]
+ ** \see RootViewController.m
  */
 // Documentation of the code is formatted for use with the documentation
 // package Doxygen (see http://www.doxygen.org/).
 //
-// Project     :  [TBD]
-// Component   : [TBD]
-// Platform    : [TBD]
+// Project     : Snapshot Stack View Demonstration
+// Platform    : iOS SDK 3.0+
 //
 ////////////////////////////////////////////////////////////////////////////
 
@@ -50,6 +53,7 @@
   
   UISwitch *m_displayStackSwitch;
   UISegmentedControl *m_imageSelection;
+  UILabel *m_imageFrameSize;
   UISlider *m_sizeSlider;
   SWSnapshotStackView *m_snapshotStackView;  
 }
@@ -61,6 +65,7 @@
 #pragma mark Properties
 
 @property (nonatomic, retain) IBOutlet UISwitch *displayStackSwitch;
+@property (nonatomic, retain) IBOutlet UILabel *imageFrameSize;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *imageSelection;
 @property (nonatomic, retain) IBOutlet UISlider *sizeSlider;
 @property (nonatomic, retain) IBOutlet SWSnapshotStackView *snapshotStackView;
