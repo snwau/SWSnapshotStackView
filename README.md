@@ -40,6 +40,7 @@ Usage
 -----
 
 To use Snapshot Stack View within your project:
+
  1. Add `SWSnapshotStackView.h` and `SWSnapshotStackView.m` to project your Xcode project.
  2. Ensure `QuartzCore.framework` framework is added to the project if not already.
  3. Import the Snapshot Stack View header file to the destination View Controller source using '#import "SWSnapshotStackView.h".
@@ -53,6 +54,7 @@ Demonstration
 -------------
 
 A demonstration application is provided to illustrate (and test) the use of Snapshot Stack View, demonstrating support for;
+
  *   Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
  *   Dynamic resizing of views frame via slider.
  *   Selection and rendering of display mode (single or stack) via switch.
