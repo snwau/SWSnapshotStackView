@@ -30,11 +30,11 @@ Snapshot Stack View has been developed to run on iOS 3.2 or later (Deployment Ta
 Support for iOS 3 was required for the target application I initially developed Snapshot Stack View for and hence Snapshot Stack View does NOT make use of any of the newer iOS features such as blocks or more importantly Automatic Reference Counting (ARC).
 
 If using Snapshot Stack View within a newer ARC enabled project, disable ARC selectively for compilation of Snapshot Stack View source files:
- 1. Select the project within Xcode project navigator
- 2. Select the required target from the list of Targets
- 3. Select the Build Phases tab
- 4. Expand the list of Compile Sources and double-click on the `SWSnapshotStackView.m` file to modify the compiler flags for this file.
- 5. Add `-fno-objc-arc` to the compiler flags
+ 1.   Select the project within Xcode project navigator
+ 2.   Select the required target from the list of Targets
+ 3.   Select the Build Phases tab
+ 4.   Expand the list of Compile Sources and double-click on the `SWSnapshotStackView.m` file to modify the compiler flags for this file.
+ 5.   Add `-fno-objc-arc` to the compiler flags
 
 Usage
 -----
@@ -53,9 +53,9 @@ Demonstration
 -------------
 
 A demonstration application is provided to illustrate (and test) the use of Snapshot Stack View, demonstrating support for;
- * Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
- * Dynamic resizing of views frame via slider.
- * Selection and rendering of display mode (single or stack) via switch.
+ *   Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
+ *   Dynamic resizing of views frame via slider.
+ *   Selection and rendering of display mode (single or stack) via switch.
 
 ![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/ScreenshotDemo.png)
 
@@ -79,7 +79,7 @@ Future enhancements when time permits, include in order of priority;
 Contributing
 ------------
 
-If you find an problem you are welcome to raise an [issue](https://github.com/snwau/SWSnapshotStackView/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
+If you find an problem you are welcome to raise an [new issue](https://github.com/snwau/SWSnapshotStackView/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
 
 Also don't hesitate to email me with any suggestions or feedback.
 
