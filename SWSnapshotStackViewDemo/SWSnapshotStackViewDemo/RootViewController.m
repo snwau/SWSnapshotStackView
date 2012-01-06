@@ -185,8 +185,6 @@
                                 floor (20 + (sizeDelta / 2.0)), 
                                 floor (m_sizeSlider.value),
                                 floor (m_sizeSlider.value));
-  NSLog (@"Slider - frame={X:%.2f,Y:%.2f},{W:%.2f,H:%.2f} sizeDelta = %.2f",
-         newFrame.origin.x, newFrame.origin.y, newFrame.size.width, newFrame.size.height, sizeDelta);  
   m_snapshotStackView.frame = newFrame; 
   
   m_imageFrameSize.text = [NSString stringWithFormat:@"(%.0f x %.0f)", floor (m_sizeSlider.value),
