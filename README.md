@@ -1,9 +1,9 @@
 Snapshot Stack View
 ==================== 
 
-Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack of shots. Best described with a screenshot:
+Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack (or pile) of shots. Best described with a screenshot:
 
-![Screenshot](http://github.com/snwau/TBD-repository/raw/master/img/Screenshot.png)
+![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/img/Screenshot.png)
 
 Features
 * Multiple display modes; single or stacked.
@@ -57,17 +57,20 @@ A demonstration application is provided to illustrate (and test) the use of Snap
 * Dynamic resizing of views frame via slider.
 * Selection and rendering of display mode (single or stack) via switch.
 
-![Screenshot](http://github.com/snwau/TBD-repository/raw/master/img/ScreenshotDemo.png)
+![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/img/ScreenshotDemo.png)
 
 Known Issues
 ------------
 
-If any, refer to current [issues](https://github.com/snwau/TBD-repository/issues) on GitHub.
+At time of release:
+* Matte and shadow effects require scaling to suit smaller frame sizes, otherwise effects can look exaggerated.
+
+For an updated list of issues, refer to the current [issues](https://github.com/snwau/SWSnapshotStackView/issues) on GitHub.
 
 Future Work
 -----------
 
-Possible improvements and/or additions include (in order of priority);
+Future enhancements when time permits, include in order of priority;
 * Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
 * Better support for smaller view frames, by scaling matte and shadow effects accordingly.
 * Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
@@ -76,7 +79,7 @@ Possible improvements and/or additions include (in order of priority);
 Contributing
 ------------
 
-If you find an problem you are welcome to raise an [issue](https://github.com/snwau/TBD-repository/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
+If you find an problem you are welcome to raise an [issue](https://github.com/snwau/SWSnapshotStackView/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
 
 Also don't hesitate to email me with any suggestions or feedback.
 
