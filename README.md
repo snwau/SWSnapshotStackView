@@ -5,7 +5,8 @@ Snapshot Stack View provides an easy means of decorating your UIImage's of any a
 
 ![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/Screenshot.png)
 
-Features
+Features:
+
  * Multiple display modes; single or stacked.
  * Respects image aspect, scaling snapshots to fit within the views frame
  * Supports all image aspects (landscape, square, portrait)
@@ -30,6 +31,7 @@ Snapshot Stack View has been developed to run on iOS 3.2 or later (Deployment Ta
 Support for iOS 3 was required for the target application I initially developed Snapshot Stack View for and hence Snapshot Stack View does NOT make use of any of the newer iOS features such as blocks or more importantly Automatic Reference Counting (ARC).
 
 If using Snapshot Stack View within a newer ARC enabled project, disable ARC selectively for compilation of Snapshot Stack View source files:
+
  1.   Select the project within Xcode project navigator
  2.   Select the required target from the list of Targets
  3.   Select the Build Phases tab
@@ -59,20 +61,23 @@ A demonstration application is provided to illustrate (and test) the use of Snap
  *   Dynamic resizing of views frame via slider.
  *   Selection and rendering of display mode (single or stack) via switch.
 
+
 ![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/ScreenshotDemo.png)
 
 Known Issues
 ------------
 
 At time of release:
+
  * Matte and shadow effects require scaling to suit smaller frame sizes, otherwise effects can look exaggerated.
 
-For an updated list of issues, refer to the current [issues](https://github.com/snwau/SWSnapshotStackView/issues) on GitHub.
+For an updated list of issues, refer to [Issues on GitHub](https://github.com/snwau/SWSnapshotStackView/issues).
 
 Future Work
 -----------
 
 Future enhancements when time permits, include in order of priority;
+
  * Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
  * Better support for smaller view frames, by scaling matte and shadow effects accordingly.
  * Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
@@ -115,8 +120,6 @@ No reproduction in any form or by any means, graphic, electronic or mechanical i
 Contact
 -------
 
-Email: Refer to source code file header for email address.
-
-Twitter: [@snwau](http://www.twitter.com/snwau)
-
-GitHub: [snwau](http://github.com/snwau)
+* Email: Refer to source code file header for email address.
+* Twitter: [@snwau](http://www.twitter.com/snwau)
+* GitHub: [snwau](http://github.com/snwau)
