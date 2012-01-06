@@ -3,13 +3,13 @@ Snapshot Stack View
 
 Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack (or pile) of shots. Best described with a screenshot:
 
-![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/img/Screenshot.png)
+![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/Screenshot.png)
 
 Features
-* Multiple display modes; single or stacked.
-* Respects image aspect, scaling snapshots to fit within the views frame
-* Supports all image aspects (landscape, square, portrait)
-* Supports dynamic modification of views frame, the image to display as the top snapshot and display mode.
+ * Multiple display modes; single or stacked.
+ * Respects image aspect, scaling snapshots to fit within the views frame
+ * Supports all image aspects (landscape, square, portrait)
+ * Supports dynamic modification of views frame, the image to display as the top snapshot and display mode.
 
 Background
 ----------
@@ -30,22 +30,22 @@ Snapshot Stack View has been developed to run on iOS 3.2 or later (Deployment Ta
 Support for iOS 3 was required for the target application I initially developed Snapshot Stack View for and hence Snapshot Stack View does NOT make use of any of the newer iOS features such as blocks or more importantly Automatic Reference Counting (ARC).
 
 If using Snapshot Stack View within a newer ARC enabled project, disable ARC selectively for compilation of Snapshot Stack View source files:
-1. Select the project within Xcode project navigator
-2. Select the required target from the list of Targets
-3. Select the Build Phases tab
-4. Expand the list of Compile Sources and double-click on the `SWSnapshotStackView.m` file to modify the compiler flags for this file.
-5. Add `-fno-objc-arc` to the compiler flags
+ 1. Select the project within Xcode project navigator
+ 2. Select the required target from the list of Targets
+ 3. Select the Build Phases tab
+ 4. Expand the list of Compile Sources and double-click on the `SWSnapshotStackView.m` file to modify the compiler flags for this file.
+ 5. Add `-fno-objc-arc` to the compiler flags
 
 Usage
 -----
 
 To use Snapshot Stack View within your project:
-1. Add `SWSnapshotStackView.h` and `SWSnapshotStackView.m` to project your Xcode project.
-2. Ensure `QuartzCore.framework` framework is added to the project if not already.
-3. Import the Snapshot Stack View header file to the destination View Controller source using '#import "SWSnapshotStackView.h".
-4. Create an instance of the Snapshot Stack View class either within a XIB using Interface Builder (IB) or programatically as you would any other view.
-5. Set the desired image (an existing UIImage) to display using the `image` property within code.
-6. Set the desired display mode using the `displayAsStack` property within code.
+ 1. Add `SWSnapshotStackView.h` and `SWSnapshotStackView.m` to project your Xcode project.
+ 2. Ensure `QuartzCore.framework` framework is added to the project if not already.
+ 3. Import the Snapshot Stack View header file to the destination View Controller source using '#import "SWSnapshotStackView.h".
+ 4. Create an instance of the Snapshot Stack View class either within a XIB using Interface Builder (IB) or programatically as you would any other view.
+ 5. Set the desired image (an existing UIImage) to display using the `image` property within code.
+ 6. Set the desired display mode using the `displayAsStack` property within code.
 
 Refer to the Demonstration application `SWSnapshotStackViewDemo/` for example of use.
 
@@ -53,17 +53,17 @@ Demonstration
 -------------
 
 A demonstration application is provided to illustrate (and test) the use of Snapshot Stack View, demonstrating support for;
-* Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
-* Dynamic resizing of views frame via slider.
-* Selection and rendering of display mode (single or stack) via switch.
+ * Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
+ * Dynamic resizing of views frame via slider.
+ * Selection and rendering of display mode (single or stack) via switch.
 
-![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/img/ScreenshotDemo.png)
+![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/ScreenshotDemo.png)
 
 Known Issues
 ------------
 
 At time of release:
-* Matte and shadow effects require scaling to suit smaller frame sizes, otherwise effects can look exaggerated.
+ * Matte and shadow effects require scaling to suit smaller frame sizes, otherwise effects can look exaggerated.
 
 For an updated list of issues, refer to the current [issues](https://github.com/snwau/SWSnapshotStackView/issues) on GitHub.
 
@@ -71,10 +71,10 @@ Future Work
 -----------
 
 Future enhancements when time permits, include in order of priority;
-* Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
-* Better support for smaller view frames, by scaling matte and shadow effects accordingly.
-* Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
-* Opening up further customisations via properties
+ * Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
+ * Better support for smaller view frames, by scaling matte and shadow effects accordingly.
+ * Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
+ * Opening up further customisations via properties
 
 Contributing
 ------------
@@ -114,5 +114,7 @@ Contact
 -------
 
 Email: Refer to source code file header for email address.
+
 Twitter: [@snwau](http://www.twitter.com/snwau)
+
 GitHub: [snwau](http://github.com/snwau)
