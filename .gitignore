@@ -16,3 +16,7 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
+
+# Screen Shot generation application
+SWSnapshotStackViewDemoSS/*
+
