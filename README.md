@@ -1,5 +1,4 @@
-Snapshot Stack View
-==================== 
+# Snapshot Stack View
 
 Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack (or pile) of shots. Best described with a screenshot:
 
@@ -94,24 +93,22 @@ License (Source Code)
 ---------------------
 
 Copyright (c) 2012 Scott White. All rights reserved.
- 
-Snapshot Stack View is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Open Source Initiative OSI - The MIT License
 
-Refer to the LICENSE file for a copy of the GNU General Public License
-along with this program.  Otherwise, see <http://www.gnu.org/licenses/>.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Refer to the LICENSE file for a copy of the MIT License
+along with this program.  Otherwise, see <http://www.opensource.org/licenses/MIT>.
 
 License (Images)
 ----------------
 
-The images (`350D_IMG_3157_20071030w.jpg`, `IMG_2777_080216w6s.jpg`, and `IMG_5737_081229w7sq.jpg`) used within the Snapshot Stack View demonstration application are exceptions to the aforementioned Source Code license and hence not covered by GNU GPL.
+The images (`350D_IMG_3157_20071030w.jpg`, `IMG_2777_080216w6s.jpg`, and `IMG_5737_081229w7sq.jpg`) used within the Snapshot Stack View demonstration application are exceptions to the aforementioned Source Code license and hence not covered by MIT.
 
 Copyright (c) 2012 Scott White. All rights reserved.
 
