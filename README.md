@@ -1,6 +1,6 @@
 # Snapshot Stack View
 
-Snapshot Stack View provides an easy means of decorating your UIImage's of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack (or pile) of shots. Best described with a screenshot:
+Snapshot Stack View provides an easy means of decorating your `UIImage`'s of any aspect ratio with a rendered matte frame and associated drop shadow. It also may render your image to look as though it is the top photograph (or snapshot) within a stack (or pile) of shots. Best described with a screenshot:
 
 ![Screenshot](http://github.com/snwau/SWSnapshotStackView/raw/master/Screenshot.png)
 
@@ -16,7 +16,7 @@ Background
 
 Snapshot Stack View was developed for use in an iOS application I'm currently developing to decorate a UIImage for presentation to the user. The application must display images of unknown and varying aspect ratios.
 
-Normally the effects rendered within the Snapshot Stack View to decorate a UIImage for display could easily generated be within Photoshop as a layer to sit over/under the UIImage, however the aspect and dimensions of the image must be known and static, hence not possible. 
+Normally the effects rendered within the Snapshot Stack View to decorate a UIImage for display could easily generated be within Photoshop as a layer to sit over/under the `UIImage`, however the aspect and dimensions of the image must be known and static, hence not possible. 
 
 An alternative approach often used is to crop the images to a fixed aspect, however this can lead to cropping important information from the image or destroying the general composition of a photograph, which I also did not want to risk.
 
@@ -44,9 +44,9 @@ To use Snapshot Stack View within your project:
 
  1. Add `SWSnapshotStackView.h` and `SWSnapshotStackView.m` to project your Xcode project.
  2. Ensure `QuartzCore.framework` framework is added to the project if not already.
- 3. Import the Snapshot Stack View header file to the destination View Controller source using '#import "SWSnapshotStackView.h".
+ 3. Import the Snapshot Stack View header file to the destination View Controller source using `#import "SWSnapshotStackView.h"`.
  4. Create an instance of the Snapshot Stack View class either within a XIB using Interface Builder (IB) or programatically as you would any other view.
- 5. Set the desired image (an existing UIImage) to display using the `image` property within code.
+ 5. Set the desired image (an existing `UIImage`) to display using the `image` property within code.
  6. Set the desired display mode using the `displayAsStack` property within code.
 
 Refer to the Demonstration application `SWSnapshotStackViewDemo/` for example of use.
@@ -57,7 +57,7 @@ Demonstration
 A demonstration application is provided to illustrate (and test) the use of Snapshot Stack View, demonstrating support for;
 
  *   Multiple images of differing aspect ratios (Image 1 - landscape, Image 2 - square, Image 3 - portrait).
- *   Dynamic resizing of views frame via slider.
+ *   Dynamic resizing of view's frame via slider.
  *   Selection and rendering of display mode (single or stack) via switch.
 
 
@@ -70,22 +70,19 @@ At time of release:
 
  * Matte and shadow effects require scaling to suit smaller frame sizes, otherwise effects can look exaggerated.
 
-For an updated list of issues, refer to [Issues on GitHub](https://github.com/snwau/SWSnapshotStackView/issues).
+For an updated list of issues/bugs, refer to [Issues on GitHub](https://github.com/snwau/SWSnapshotStackView/issues?labels=Bug&sort=created&direction=desc&state=open&page=1).
 
 Future Work
 -----------
 
-Future enhancements when time permits, include in order of priority;
+A list of future enhancements is being maintained within the [GitHub Issue Tracker](https://github.com/snwau/SWSnapshotStackView/issues?labels=Enhancement&sort=created&direction=desc&state=open&page=1), under the `Enhancement` label. 
 
- * Provide facility to enable randomisation of rotation angles for underlying shots within the stack, currently static.
- * Better support for smaller view frames, by scaling matte and shadow effects accordingly.
- * Provide option for cropping image to frame dimensions/aspect rather than always drawing to maintain image aspect ratio.
- * Opening up further customisations via properties
+If there is a particular enhancement you would like to "up-vote" to increase priority for completion, please leave a comment within the respective enhancement issue.
 
 Contributing
 ------------
 
-If you find an problem you are welcome to raise an [new issue](https://github.com/snwau/SWSnapshotStackView/issues/new) on GitHub otherwise fork the repository, make the required changes and submit a pull request for merge consideration into the main repository.
+If you find an problem you are welcome to raise a [new issue](https://github.com/snwau/SWSnapshotStackView/issues/new) otherwise fork the repository, make the required changes and submit a pull request for merge consideration.
 
 Also don't hesitate to email me with any suggestions or feedback.
 
@@ -94,7 +91,7 @@ License (Source Code)
 
 Copyright (c) 2012 Scott White. All rights reserved.
 
-Open Source Initiative OSI - The MIT License
+MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

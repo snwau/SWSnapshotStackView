@@ -29,8 +29,7 @@
  ** TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  ** SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  **
- ** Open Source Initiative OSI - The MIT License, 
- ** see <http://www.opensource.org/licenses/MIT/>.
+ ** MIT License, see <http://www.opensource.org/licenses/MIT/>.
  **
  ** \see SWSnapshotStackView.h
  */
@@ -450,15 +449,18 @@
     
   }
 
-  // Calculate frame for the top snapshot, the final image, centred
+  // Calculate frame for the actual image within the top snapshot, centered
   // within the already drawn matte frame. Unlike the stroked matte
   // frame outline the image must reside on integer point values,
-  // to avoid aliasing across points/pixels
+  // to avoid aliasing across points/pixels. 
+  // Hence conversion of the matte frame rectangle (calculated to perform
+  // innser stroke at 0.5 offset) requires subtraction of the offsets and
+  // increasing size in both dimension by 1 point to compensate.
   CGRect imageFrame = matteFrameRect;
-  imageFrame.origin.x += SWSnapshotStackViewMatteWidth + 0.5;
-  imageFrame.origin.y += SWSnapshotStackViewMatteWidth + 0.5;
-  imageFrame.size.width -= MatteWidthTotal;
-  imageFrame.size.height -= MatteWidthTotal;
+  imageFrame.origin.x += SWSnapshotStackViewMatteWidth - 0.5;
+  imageFrame.origin.y += SWSnapshotStackViewMatteWidth - 0.5;
+  imageFrame.size.width -= MatteWidthTotal - 1;
+  imageFrame.size.height -= MatteWidthTotal - 1;
 
   // Draw the image without manipulation other than correct scaling,
   // could have used CGContextDrawImage() if further drawing required
