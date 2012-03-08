@@ -29,8 +29,7 @@
  ** TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  ** SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  **
- ** Open Source Initiative OSI - The MIT License, 
- ** see <http://www.opensource.org/licenses/MIT/>.
+ ** MIT License, see <http://www.opensource.org/licenses/MIT/>.
  **
  ** \see SNWSnapshotStackView.m
  */
@@ -39,7 +38,7 @@
 //
 // Project     : iOS Common Components
 // Component   : GUI/Views
-// Platform    : iOS SDK 3.0+
+// Platform    : iOS SDK 3.1+
 //
 ////////////////////////////////////////////////////////////////////////////
 
@@ -120,6 +119,14 @@ SnapshotPosition_t;
   //! Minimum scaling factor was calculated using image width (YES) otherwise
   //! height (NO), stored to avoid recalculation and comparison when drawing.
   BOOL m_scaledUsingWidth;
+  
+  //! Shadow Direction Sign
+  //! Support for inversion of shadow base translation, y-axis in iOS 3.2+
+  //! Stored to avoid having to recheck system OS version during redrawing etc.
+  //! In <3.2, positive y, translates shadow DOWN
+  //! In 3.2+, positive y, translates shadow UP
+  //! NOTE: Not required if you do not wish to support iOS <3.2
+  CGFloat m_shadowDirSign;
 }
 
 

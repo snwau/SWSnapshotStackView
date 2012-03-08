@@ -38,7 +38,7 @@
 //
 // Project     : iOS Common Components
 // Component   : GUI/Views
-// Platform    : iOS SDK 3.0+
+// Platform    : iOS SDK 3.1+
 //
 ////////////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,7 @@
 // SNAPSHOT STACK VIEW CLASS (PRIVATE METHODS)
 // ********************************************************************** //
 
-#pragma mark Snapshot Stack View class (Private Methods)
+#pragma mark Snapshot Stack View class (Private Interface)
 
 @interface SWSnapshotStackView (Private)
 
@@ -221,6 +221,14 @@
   
   // View's background is transparent underneath the rendered snapshot(s)
   self.backgroundColor = [UIColor clearColor];
+  
+  // Check system (iOS) version, invert sign of shadow direction when
+  // running on iOS <3.2
+  m_shadowDirSign = 1.0;
+  if (NSOrderedAscending == [[[UIDevice currentDevice] systemVersion] compare:@"3.2" options:NSNumericSearch])
+  {
+    m_shadowDirSign = -1.0;
+  }
 }
 
 
@@ -314,7 +322,7 @@
     
     // Draw the shadow using it's calculated path
     colour = [UIColor colorWithRed:0 green:0 blue:0.0 alpha:0.6];
-    CGContextSetShadowWithColor (context, CGSizeMake (0, SWSnapshotStackViewSingleShadowYOffset), 
+    CGContextSetShadowWithColor (context, CGSizeMake (0, (SWSnapshotStackViewSingleShadowYOffset * m_shadowDirSign)), 
                                  SWSnapshotStackViewSingleShadowRadius, colour.CGColor);
     CGContextAddPath (context, shadowPath);
     CGContextFillPath (context);      
@@ -432,7 +440,7 @@
       // slightly. Still not 100% happy with the shadow drawing, plan
       // to tweak eventually to get better end effect
       colour = [UIColor colorWithRed:0 green:0 blue:0.0 alpha:0.4];
-      CGContextSetShadowWithColor (context, CGSizeMake (0.0, SWSnapshotStackViewStackShadowYOffset),
+      CGContextSetShadowWithColor (context, CGSizeMake (0.0, (SWSnapshotStackViewStackShadowYOffset * m_shadowDirSign)),
                                    SWSnapshotStackViewStackShadowRadius, colour.CGColor);
       CGContextAddPath (context, matteFramePath); 
       CGContextFillPath (context);

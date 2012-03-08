@@ -25,7 +25,7 @@ I use Snapshot Stack View to display a thumbnail to the user within an article f
 Compatability
 -------------
 
-Snapshot Stack View has been developed to run on iOS 3.2 or later (Deployment Target) and was developed using iOS SDK 5.0, Xcode 4.2.1 (Base SDK).
+Snapshot Stack View has been developed to run on iOS 3.1 or later (Deployment Target) and was developed using iOS SDK 5.0, Xcode 4.2.1 (Base SDK).
 
 Support for iOS 3 was required for the target application I initially developed Snapshot Stack View for and hence Snapshot Stack View does NOT make use of any of the newer iOS features such as blocks or more importantly Automatic Reference Counting (ARC).
 
