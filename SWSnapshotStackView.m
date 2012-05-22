@@ -279,18 +279,24 @@
   
     CGSize scaledImageSize;
 
-    // Calculate required scaling of image to fit within the views frame
-    // using the images aspect ratio to determine the largest dimension
-    // to drive scaling factor, leaving room for matte frame and shadow
-    if (m_imageAspect > 1.0)
+    // Calculate required scaling of image to fit within the views frame, 
+    // leaving room for matte frame and shadow. As the views frame may
+    // have differing aspect ratio to image, scaling factors must be
+    // calculated for each dimension and the dimension requiring the
+    // most scaling is used to determine the resulting scaled image size
+    CGFloat targetWidth = self.frame.size.width - MatteWidthTotal;
+    CGFloat requiredWidthScaling = targetWidth / self.image.size.width;
+    CGFloat targetHeight = self.frame.size.height - MatteWidthTotal - SWSnapshotStackViewSingleShadowTotalHeight;
+    CGFloat requiredHeightScaling = targetHeight / self.image.size.height;
+    
+    if (requiredWidthScaling <= requiredHeightScaling)
     {
-      CGFloat targetWidth = self.frame.size.width - MatteWidthTotal;
-      scaledImageSize = CGSizeMake (targetWidth, targetWidth / m_imageAspect);
+      scaledImageSize = CGSizeMake (targetWidth, targetWidth / m_imageAspect); 
+
     }
-    else
+    else 
     {
-      CGFloat targetHeight = self.frame.size.height - MatteWidthTotal - SWSnapshotStackViewSingleShadowTotalHeight;
-      scaledImageSize = CGSizeMake (targetHeight * m_imageAspect, targetHeight);
+      scaledImageSize = CGSizeMake (targetHeight * m_imageAspect, targetHeight);     
     }
     
     // Create the matte frame rectangle
