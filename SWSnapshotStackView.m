@@ -267,7 +267,7 @@
   // matte frame around snapshots
   UIColor *colour = [UIColor whiteColor];
   [colour setFill];
-  colour = [UIColor grayColor];
+  colour = self.borderColor;
   [colour setStroke];  
   CGContextSetLineWidth (context, 1.0);
 
@@ -532,14 +532,12 @@
     // Determine if the scaling required for either dimension is the
     // largest (smallest scaling factor) required for any of the snapshots
     // processed thus far
-    if (requiredWidthScaling < requiredScaling)
+    if (requiredWidthScaling < requiredHeightScaling)
     {
       requiredScaling = requiredWidthScaling;
       m_minScaleShotIdx = idx;
       m_scaledUsingWidth = YES;
-    }
-    if (requiredHeightScaling < requiredScaling)
-    {
+    } else {
       requiredScaling = requiredHeightScaling;
       m_minScaleShotIdx = idx;   
       m_scaledUsingWidth = NO;
@@ -547,6 +545,10 @@
   }
 }
 
+- (UIColor *)borderColor;
+{
+  return _borderColor = _borderColor ?: [UIColor grayColor];
+}
 
 // ********************************************************************** //
 
