@@ -267,7 +267,7 @@
   // matte frame around snapshots
   UIColor *colour = [UIColor whiteColor];
   [colour setFill];
-  colour = [UIColor grayColor];
+  colour = self.borderColor;
   [colour setStroke];  
   CGContextSetLineWidth (context, 1.0);
 
@@ -545,6 +545,10 @@
   }
 }
 
+- (UIColor *)borderColor;
+{
+  return _borderColor = _borderColor ?: [UIColor grayColor];
+}
 
 // ********************************************************************** //
 
