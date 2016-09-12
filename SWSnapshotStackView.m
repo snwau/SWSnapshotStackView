@@ -533,14 +533,12 @@
     // Determine if the scaling required for either dimension is the
     // largest (smallest scaling factor) required for any of the snapshots
     // processed thus far
-    if (requiredWidthScaling < requiredScaling)
+    if (requiredWidthScaling < requiredHeightScaling)
     {
       requiredScaling = requiredWidthScaling;
       m_minScaleShotIdx = idx;
       m_scaledUsingWidth = YES;
-    }
-    if (requiredHeightScaling < requiredScaling)
-    {
+    } else {
       requiredScaling = requiredHeightScaling;
       m_minScaleShotIdx = idx;   
       m_scaledUsingWidth = NO;
